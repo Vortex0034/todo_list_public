@@ -1,0 +1,141 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+/* фон - Photo by
+<a href="https://unsplash.com/@declansun?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Declan Sun</a>
+on
+<a href="https://unsplash.com/photos/a-row-of-bookshelves-filled-with-lots-of-books-aon-6I6Y6uQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+  */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.header-buttons-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.header-button,
+.header-button:visited {
+    color: #000;
+    display: flex;
+    align-items: center;
+    background-color: var(--a-light-color);
+    gap: 0.3rem;
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.header-button:hover,
+.header-button:focus {
+    background-color: var(--a-blue-color);
+    color: var(--a-light-color);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html{
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+.done-tasks-container {
+    grid-area: done-tasks-container;
+}
+
+.deadline-tasks-container {
+    grid-area: deadline-tasks-container;
+}
+
+.main-tasks-container {
+    grid-area: main-tasks-container;
+}
+
+#root {
+    height: 100%;
+}
+
+.interface-container {
+    height: 100%;
+    display: grid;
+    grid-template-areas: 
+    "main-tasks-container main-tasks-container deadline-tasks-container"
+    "main-tasks-container main-tasks-container deadline-tasks-container"
+    "main-tasks-container main-tasks-container done-tasks-container"
+    ;
+}
+
+.add-window {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0, 0.8);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* коррекция положения элемента */
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-window-none {
+    display: none;
+}
+
+.add-form {
+    background-color: aliceblue;
+    padding: 5rem;
+    display: flex;
+    margin: 5rem;
+    flex-direction: column;
+}

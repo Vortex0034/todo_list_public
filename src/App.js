@@ -1,25 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import MainTaskList from "./interfaceModules/MainTaskList/MainTaskList.js";
+import DeadlineTaskList from "./interfaceModules/DeadlineTaskList/DeadlineTaskList.js";
+import DoneTaskList from "./interfaceModules/DoneTaskList/DoneTaskList.js";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
-export default App;
+export default function Interface() {
+    return (
+    <section className="interface-container">
+      <MainTaskList />
+      <DeadlineTaskList />
+      <DoneTaskList />
+    </section>
+    );
+  }
