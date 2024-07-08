@@ -17,7 +17,7 @@ function AddTaskButton() {
         <button onClick={addTaskController}>
             Добавить задачу
         </button>
-        <AddTaskWindow isVision={isWindowShowed} setVisionFunction={changeWindow}/>
+        <AddTaskWindow toChange={null} currTask={null} isVision={isWindowShowed} setVisionFunction={changeWindow}/>
         </>
     );
 }
@@ -26,7 +26,8 @@ export default function MainTaskList() {
     let taskList = getTaskList();
     let taskNodes = Object.keys(taskList).reduce(function(result, key) {
         let task = taskList[key];
-        result.push(<Task id={task.id} />);
+        if (!task.done)
+            result.push(<Task id={task.id} />);
         return result;
     }, []);
     let newtaskNodes = taskNodes;

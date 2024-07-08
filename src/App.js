@@ -6,8 +6,10 @@ export default function Interface() {
     return (
     <section className="interface-container">
       <MainTaskList />
-      <DeadlineTaskList />
-      <DoneTaskList />
+      <section className="ofther-tasks-container">
+        <DeadlineTaskList />
+        <DoneTaskList />
+      </section>
     </section>
     );
   }

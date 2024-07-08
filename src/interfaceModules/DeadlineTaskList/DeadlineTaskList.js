@@ -5,7 +5,7 @@ export default function DeadlineTaskList() {
 
     return (
         <section className="deadline-tasks-container">
-            <h2>Задачи с истекающим сроком</h2>
+            <h2>Задачи с истёкшим сроком</h2>
             <section className="deadline-tasks">
             </section>
         </section>

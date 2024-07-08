@@ -86,18 +86,37 @@ html{
 
 body {
     height: 100%;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
 }
 
 .done-tasks-container {
-    grid-area: done-tasks-container;
+
 }
 
 .deadline-tasks-container {
-    grid-area: deadline-tasks-container;
+
 }
 
 .main-tasks-container {
-    grid-area: main-tasks-container;
+
+}
+
+:root {
+    --dark-color-red: #8f170a;
+    --dark-color: #0a0100;
+    --light-color: #fff;
+    --grey-color: #c4bdbc;
+    --dark-gray-color: #6b5f5e;
+    --light-color-red: #de7e73;
+}
+
+button {
+    border-radius: 10px;
+    border: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    font-size: 1rem;
 }
 
 #root {
@@ -106,12 +125,13 @@ body {
 
 .interface-container {
     height: 100%;
+    grid-template-columns: repeat(2, 1fr);
     display: grid;
-    grid-template-areas: 
-    "main-tasks-container main-tasks-container deadline-tasks-container"
-    "main-tasks-container main-tasks-container deadline-tasks-container"
-    "main-tasks-container main-tasks-container done-tasks-container"
-    ;
+}
+
+.main-tasks {
+    display: flex;
+    flex-direction: column;
 }
 
 .add-window {
@@ -128,8 +148,27 @@ body {
     justify-content: center;
 }
 
+.ofther-tasks-container {
+    flex-direction: column;
+    grid-template-rows: repeat(2, 1fr);
+    display: grid;
+}
+
 .add-window-none {
     display: none;
+}
+
+.delete-button,
+.change-button {
+    background-color: var(--light-color);
+}
+
+.delete-button:hover,
+.delete-button:focus,
+.change-button:focus,
+.change-button:hover {
+    background: var(--dark-gray-color);
+    font-size: 1rem;
 }
 
 .add-form {
@@ -138,4 +177,50 @@ body {
     display: flex;
     margin: 5rem;
     flex-direction: column;
+}
+
+.task-body {
+    margin: 0.5rem;
+    background-color: var(--grey-color);
+    border-radius: 10px;
+    padding: 0.3rem;
+    flex-direction: column;
+    display: flex;
+}
+
+.task h2 {
+    font-size: 1.2rem;
+}
+
+.task {
+    background-color: var(--light-color);
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    border: var(--grey-color) solid;
+}
+
+.task-buttons-time {
+    display: flex;
+}
+    
+.description {
+    max-width: 45rem;
+    overflow-wrap: break-word;
+    margin: 0.2rem;
+}
+
+.delete-button {
+    margin: 0.2rem;
+}
+
+.time-container {
+    display: flex;
+    margin: 0.2rem;
+    flex-direction: column;
+}
+
+.change-button {
+    margin: 0.2rem;
 }

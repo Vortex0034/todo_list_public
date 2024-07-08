@@ -6,7 +6,7 @@ function getLastId() {
     let lastId = localStorage.getItem('lastId');
     if (lastId === null)
         lastId = 0;
-    return lastId;
+    return Number(lastId);
 }
 
 function getTaskList() {
@@ -20,10 +20,10 @@ function getTaskList() {
     }
 }
 
-function saveTask(id, title, description, createTime, deadlineTime) {
+function saveTask(id, title, description, deadlineTime, createTime) {
     let currentTask = {"id": id,
                        "title": title,
-                       "descriplion": description,
+                       "description": description,
                        "createTime": createTime,
                        "deadlineTime": deadlineTime,
                        "done": false
