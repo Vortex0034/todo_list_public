@@ -25,7 +25,7 @@ export default function AddTaskWindow({ isVision, setVisionFunction, toChange, c
         let createDateMs = Date.now();
         let lastId = getLastId();
 
-        saveTask(lastId, title, description, deadlineDateMs, createDateMs);
+        saveTask(lastId, title, description, deadlineDateMs, createDateMs, false);
         saveLastId(lastId + 1);  
         
         setVisionFunction( (state) => {state = false});

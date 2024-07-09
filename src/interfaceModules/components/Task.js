@@ -1,4 +1,4 @@
-import {getTaskList, deleteTask, editTask} from "./task_controller.js"
+import {getTaskList, deleteTask, setTaskStatus} from "./task_controller.js"
 import { useState } from 'react';
 import AddTaskWindow from "../MainTaskList/AddTaskWindow.js";
 
@@ -28,11 +28,6 @@ function Time({task}) {
     );
 }
 
-function deleteTaskHandler(event) {
-    let taskId = event.currentTarget.id;
-    deleteTask(taskId);
-}
-
 function ChangeButton({task}) {
 
     const [isWindowShowed ,changeWindow] = useState(false);
@@ -49,8 +44,8 @@ function ChangeButton({task}) {
     );
 }
 
-function DeleteButton({task, handler}) {
-    return <button className="delete-button" id={task.id} onClick={handler}>Удалить</button>
+function DeleteButton({task}) {
+    return <button className="delete-button" id={task.id} onClick={(e) => (deleteTask(task.id))}>Удалить</button>
 }
 
 function Description({task}) {
@@ -64,11 +59,11 @@ function DoneButton({ task }) {
 
     if (!task.done)
         return (
-            <button className="done-button" id={task.id}>Отметить выполненным</button>
+            <button className="done-button" id={task.id} onClick={(e) => (setTaskStatus(true, task))}>Отметить выполненным</button>
         );
     else
         return (
-            <button className="done-button" id={task.id}>Отметить невыполненным</button>
+            <button className="done-button" id={task.id} onClick={(e) => (setTaskStatus(false, task))}>Отметить невыполненным</button>
         );
 }
 
@@ -80,7 +75,7 @@ export default function Task({id}) {
         <section className="task-body">
             <Description task={task} />
             <section className="task-buttons-time">
-                <DeleteButton task={task} handler={deleteTaskHandler} />
+                <DeleteButton task={task} />
                 <ChangeButton task={task} />
                 <Time task={task} />
                 <DoneButton task={task}/>

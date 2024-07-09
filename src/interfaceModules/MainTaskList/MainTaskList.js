@@ -26,7 +26,8 @@ export default function MainTaskList() {
     let taskList = getTaskList();
     let taskNodes = Object.keys(taskList).reduce(function(result, key) {
         let task = taskList[key];
-        if (!task.done)
+        let timeIsUp = Number(task.deadlineTime) < Date.now();
+        if (!task.done && !timeIsUp)
             result.push(<Task id={task.id} />);
         return result;
     }, []);

@@ -1,3 +1,8 @@
+function setTaskStatus(done, task) {
+    task.done = done;
+    saveTask(task.id, task.title, task.description, task.deadlineTime, task.createTime, task.done);
+}
+
 function saveLastId(id) {
     localStorage.setItem('lastId', String(id));
 }
@@ -20,13 +25,13 @@ function getTaskList() {
     }
 }
 
-function saveTask(id, title, description, deadlineTime, createTime) {
+function saveTask(id, title, description, deadlineTime, createTime, doneStatus) {
     let currentTask = {"id": id,
                        "title": title,
                        "description": description,
                        "createTime": createTime,
                        "deadlineTime": deadlineTime,
-                       "done": false
+                       "done": doneStatus
     };
     let taskList = getTaskList();
     taskList[id] = currentTask;
@@ -48,4 +53,4 @@ function deleteTask(id) {
     
 }
 
-export {getTaskList, deleteTask, saveTask, saveLastId, getLastId};
+export {getTaskList, deleteTask, saveTask, saveLastId, getLastId, setTaskStatus};
