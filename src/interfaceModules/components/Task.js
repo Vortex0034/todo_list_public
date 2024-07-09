@@ -1,23 +1,7 @@
-import {getTaskList, deleteTask, setTaskStatus} from "./task_controller.js"
+import {getTaskList, deleteTask, setTaskStatus} from "../../services/task_controller.js"
 import { useState } from 'react';
-import AddTaskWindow from "../MainTaskList/AddTaskWindow.js";
-
-function TimeBlock({ms}) {
-    function leadingZero(token) {
-        return ("0" + token).slice(-2)
-    }
-
-    let date = new Date(ms);
-    let year = date.getFullYear();
-    let month = leadingZero(date.getMonth());
-    let day = leadingZero(date.getDate());
-    let hours = leadingZero(date.getHours());
-    let minutes = leadingZero(date.getMinutes());
-
-    return (
-        <span>{day}.{month}.{year} {hours}:{minutes}</span>
-    );
-}
+import {TimeBlock} from "./time_blocks.js"
+import AddChangeTaskWindow from "../MainTaskList/AddChangeTaskWindow.js";
 
 function Time({task}) {
     return (
@@ -39,7 +23,7 @@ function ChangeButton({task}) {
     return ( 
         <>
             <button className="change-button" onClick={changeTaskHandler}>Изменить</button>
-            <AddTaskWindow setVisionFunction={changeWindow} isVision={isWindowShowed} toChange={true} currTask={task} />
+            <AddChangeTaskWindow setVisionFunction={changeWindow} isVision={isWindowShowed} toChange={true} currTask={task} />
         </>
     );
 }
@@ -51,7 +35,7 @@ function DeleteButton({task}) {
 function Description({task}) {
     let text = task.description;
     return (<section className="description">
-        {text};
+        {text}
     </section>);
 }
 

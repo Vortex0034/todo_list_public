@@ -1,22 +1,13 @@
-import Task from "../components/Task";
-import {getTaskList} from "../components/task_controller.js";
+import {getListOfTaskNodes} from "../../services/services.js";
 
 export default function DeadlineTaskList() {
-    let taskList = getTaskList();
-    let taskNodes = Object.keys(taskList).reduce(function(result, key) {
-        let task = taskList[key];
-        let timeIsUp = Number(task.deadlineTime) < Date.now();
-        if (!task.done && timeIsUp)
-            result.push(<Task id={task.id} />);
-        return result;
-    }, []);
-    let newtaskNodes = taskNodes;
+    let taskNodes = getListOfTaskNodes(false, true);
 
     return (
         <section className="deadline-tasks-container">
             <h2>Задачи с истёкшим сроком</h2>
             <section className="deadline-tasks">
-                {newtaskNodes}
+                {taskNodes}
             </section>
         </section>
     );

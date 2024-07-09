@@ -1,13 +1,14 @@
 import { useState } from 'react';
 
-import {getTaskList, saveLastId, getLastId, saveTask} from "../components/task_controller.js";
+import {saveLastId, getLastId, saveTask} from "../../services/task_controller.js";
+import { toNormHTMLDateFormat } from "../../services/time_services.js";
 
-export default function AddTaskWindow({ isVision, setVisionFunction, toChange, currTask }) {
+export default function AddChangeTaskWindow({ isVision, setVisionFunction, toChange, currTask }) {
 
     function submitHandlerChange(task) {
-        let title = document.getElementById(`task-title-${task.id}`).value;
-        let description = document.getElementById(`task-description-${task.id}`).value;
-        let deadlineDateMs = Date.parse(document.getElementById(`task-deadline-${task.id}`).value);
+        let title = document.getElementById(`task-title-${ task.id }`).value;
+        let description = document.getElementById(`task-description-${ task.id }`).value;
+        let deadlineDateMs = Date.parse(document.getElementById(`task-deadline-${ task.id }`).value);
 
         
         let id = task.id;
@@ -36,32 +37,11 @@ export default function AddTaskWindow({ isVision, setVisionFunction, toChange, c
         setVisionFunction( (state) => {state = false});
     }
 
-    function ChangeTaskForm({task}) {
-
-        function leadingZero(token) {
-            return ("0" + token).slice(-2)
-        }
-
-        function leadingZeroMilli(token) {
-            return ("00" + token).slice(-3)
-        }
-
-        let date = new Date(task.deadlineTime);
-        let year = date.getFullYear();
-        let month = leadingZero(date.getMonth() + 1); // подсчет начинается с 0, поэтому увеличим на 1
-        let day = leadingZero(date.getDate());
-        let hours = leadingZero(date.getHours());
-        let minutes = leadingZero(date.getMinutes());
-        let seconds = leadingZero(date.getSeconds());
-        let milliseconds = leadingZeroMilli(date.getMilliseconds());
-
-        let result = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`;
+    function ChangeTaskForm({ task }) {
 
         const [title, setTitle] = useState(task.title);
         const [description, setDescription] = useState(task.description);
-        const [deadlineTime, setDeadlineTime] = useState(result);
-
-        console.log(result);
+        const [deadlineTime, setDeadlineTime] = useState(toNormHTMLDateFormat(task.deadlineTime));
 
         return (
             <form className="add-form">

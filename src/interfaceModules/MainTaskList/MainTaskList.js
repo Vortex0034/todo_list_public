@@ -1,8 +1,6 @@
 import { useState } from 'react';
-
-import Task from "../components/Task";
-import {getTaskList} from "../components/task_controller.js";
-import AddTaskWindow from "./AddTaskWindow.js";
+import { getListOfTaskNodes } from "../../services/services.js";
+import AddChangeTaskWindow from "./AddChangeTaskWindow.js";
 
 function AddTaskButton() {
 
@@ -17,28 +15,20 @@ function AddTaskButton() {
         <button onClick={addTaskController}>
             Добавить задачу
         </button>
-        <AddTaskWindow toChange={null} currTask={null} isVision={isWindowShowed} setVisionFunction={changeWindow}/>
+        <AddChangeTaskWindow toChange={null} currTask={null} isVision={isWindowShowed} setVisionFunction={changeWindow}/>
         </>
     );
 }
 
 export default function MainTaskList() {
-    let taskList = getTaskList();
-    let taskNodes = Object.keys(taskList).reduce(function(result, key) {
-        let task = taskList[key];
-        let timeIsUp = Number(task.deadlineTime) < Date.now();
-        if (!task.done && !timeIsUp)
-            result.push(<Task id={task.id} />);
-        return result;
-    }, []);
-    let newtaskNodes = taskNodes;
+    let taskNodes = getListOfTaskNodes(false, false);
 
     return (
         <section className="main-tasks-container">
             <h2>Поставленные задачи</h2>
             <AddTaskButton />
             <section className="main-tasks">
-                {newtaskNodes}
+                {taskNodes}
             </section>
         </section>
     );
