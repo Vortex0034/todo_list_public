@@ -1,7 +1,7 @@
 import {getListOfTaskNodes} from "../../services/services.js";
 
 export default function DeadlineTaskList() {
-    let taskNodes = getListOfTaskNodes(false, true);
+    let taskNodes = getListOfTaskNodes(null, false, true);
 
     return (
         <section className="deadline-tasks-container">

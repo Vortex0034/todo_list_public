@@ -38,6 +38,7 @@ function saveTask(id, title, description, deadlineTime, createTime, doneStatus) 
     let taskListJSON = JSON.stringify(taskList);
     console.log(taskListJSON);
     localStorage.setItem("taskList", taskListJSON);
+    window.location.reload()
 }
 
 function deleteTask(id) {
@@ -46,6 +47,7 @@ function deleteTask(id) {
         delete taskList[id];
         let taskListJSON = JSON.stringify(taskList);
         localStorage.setItem('taskList', taskListJSON);
+        window.location.reload()
     }
     catch {
         alert("Ошибка удаления задачи")

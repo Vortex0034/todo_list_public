@@ -1,7 +1,7 @@
 import {getListOfTaskNodes} from "../../services/services.js";
 
 export default function DoneTaskList() {
-    let taskNodes = getListOfTaskNodes(true, null);
+    let taskNodes = getListOfTaskNodes(null, true, null);
 
     return (
         <section className="done-tasks-container">

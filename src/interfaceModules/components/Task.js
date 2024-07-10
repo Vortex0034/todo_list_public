@@ -4,10 +4,11 @@ import {TimeBlock} from "./time_blocks.js"
 import AddChangeTaskWindow from "../MainTaskList/AddChangeTaskWindow.js";
 
 function Time({task}) {
+    let isSoonLate = task.deadlineTime - task.createTime <= 86400000 && task.deadlineTime - task.createTime >= 0
     return (
     <section className="time-container">
         <span>Дата создания: <TimeBlock ms={Number(task.createTime)} /></span>
-        <span>Крайний срок: <TimeBlock ms={Number(task.deadlineTime)} /></span>
+        <span>Крайний срок: <TimeBlock ms={Number(task.deadlineTime)}  isSoonLate={isSoonLate}/></span>
     </section>
     );
 }
@@ -51,10 +52,10 @@ function DoneButton({ task }) {
         );
 }
 
-export default function Task({id}) {
+export default function Task({ id }) {
     let taskList = getTaskList();
     let task = taskList[String(id)];
-    return (<section className="task">
+    return (<section className="task" >
     <h2 className="task-title">{task.title}</h2>
         <section className="task-body">
             <Description task={task} />
