@@ -1,14 +1,15 @@
 import {getTaskList, deleteTask, setTaskStatus} from "../../services/task_controller.js"
 import { useState } from 'react';
 import {TimeBlock} from "./time_blocks.js"
-import AddChangeTaskWindow from "../MainTaskList/AddChangeTaskWindow.js";
+import AddChangeTaskWindow from "../components/AddChangeTaskWindow.js";
 
 function Time({task}) {
-    let isSoonLate = task.deadlineTime - task.createTime <= 86400000 && task.deadlineTime - task.createTime >= 0
+    let date = Date.now();
+    let isSoonLate = task.deadlineTime - date <= 86400000 && task.deadlineTime - date >= 0
     return (
     <section className="time-container">
         <span>Дата создания: <TimeBlock ms={Number(task.createTime)} /></span>
-        <span>Крайний срок: <TimeBlock ms={Number(task.deadlineTime)}  isSoonLate={isSoonLate}/></span>
+        <span>Крайний срок: <TimeBlock ms={Number(task.deadlineTime)}  isDone={task.done} isSoonLate={isSoonLate}/></span>
     </section>
     );
 }

@@ -36,4 +36,9 @@ function getListOfTaskNodes(sortValue, isDoneTasks, timeIsUpTasks) {
     return taskNodes;
 }
 
-export {getListOfTaskNodes}
+function updateList(sortValue, isDoneTasks, timeIsUpTasks, tasksSetter) {
+    let tasks = getListOfTaskNodes(sortValue, isDoneTasks, timeIsUpTasks);
+    tasksSetter(tasks);
+}
+
+export {getListOfTaskNodes, updateList}

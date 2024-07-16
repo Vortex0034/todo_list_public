@@ -1,62 +1,34 @@
-import { useState } from 'react';
-import { getListOfTaskNodes } from "../../services/services.js";
-import AddChangeTaskWindow from "./AddChangeTaskWindow.js";
+import { useEffect } from 'react';
+import { updateList } from "../../services/services.js";
 
-function AddTaskButton() {
+export default function MainTaskList({ tasks, tasksSetter }) {
 
-    const [isWindowShowed, changeWindow] = useState(false);
-
-    function addTaskController() {
-        changeWindow(true);
+    function selectValueHandler(e) {
+        let sortSelect = e.target.name;
+        updateList(sortSelect, false, false, tasksSetter);
     }
 
-    return (
-        <>
-        <button className="add-button" onClick={addTaskController}>
-            Добавить задачу
-        </button>
-        <AddChangeTaskWindow toChange={null} currTask={null} isVision={isWindowShowed} setVisionFunction={changeWindow}/>
-        </>
-    );
-}
-
-function MainTasks({ sortValue }) {
-    
-
-    let taskNodes = getListOfTaskNodes(sortValue, false, false);
-    return (
-        <section className="main-tasks">
-            {taskNodes}
-        </section>
-    );
-}
-
-export default function MainTaskList() {
-    const [sortValue, setSortValue] = useState("createTime");
-
-    function selectValueHandler() {
-        let sortSelect = document.getElementById("sort-select").value;
-        setSortValue(sortSelect);
-    }
+    useEffect(() => {
+        updateList("createTime", false, false, tasksSetter);
+    }, []);
 
     function SortSelector() {
         return (
-            <select onChange={selectValueHandler} name="sort-select" id="sort-select">
-                <option value="deadlineTime">По дате дедлайна</option>
-                <option value="createTime">По дате создания</option>
-            </select>
+            <section className='select-buttons-container'>
+                <button name='createTime' onClick={selectValueHandler}>По дате создания</button>
+                <button name='deadlineTime' onClick={selectValueHandler}>По дате дедлайна</button>
+            </section>
         );
     }
 
     return (
         <section className="main-tasks-container">
             <h2>Поставленные задачи</h2>
-            <section className='main_control'>
-                <AddTaskButton />
-                <SortSelector />
-            </section>
+            <SortSelector />
             
-            <MainTasks sortValue={sortValue}/>
+            <section className="main-tasks">
+                {tasks}
+            </section>
         </section>
     );
 }

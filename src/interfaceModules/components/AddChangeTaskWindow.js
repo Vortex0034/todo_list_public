@@ -44,7 +44,7 @@ export default function AddChangeTaskWindow({ isVision, setVisionFunction, toCha
         const [deadlineTime, setDeadlineTime] = useState(toNormHTMLDateFormat(task.deadlineTime));
 
         return (
-            <form className="add-form">
+            <form className="change-add-form">
                     Заголовок:
                     <input id={`task-title-${task.id}`} value={title} onChange={e => setTitle(e.target.value)}></input>
                     Описание:
@@ -59,7 +59,7 @@ export default function AddChangeTaskWindow({ isVision, setVisionFunction, toCha
 
     function AddTaskForm() {
         return (
-            <form className="add-form">
+            <form className="change-add-form">
                     Заголовок:
                     <input id="task-title"></input>
                     Описание:
