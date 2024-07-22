@@ -1,13 +1,15 @@
-import {getListOfTaskNodes} from "../../services/services.js";
+import Task from "../components/Task.js";
 
-export default function DeadlineTaskList() {
-    let taskNodes = getListOfTaskNodes(null, false, true);
+export default function DeadlineTaskList({ tasks, onChangeDelete }) {
+    let tasksNodes = tasks.map((task) => 
+        <Task id={task.id} key={task.id} onChangeDelete={onChangeDelete}/>
+    );
 
     return (
         <section className="deadline-tasks-container">
             <h2>Задачи с истёкшим сроком</h2>
             <section className="deadline-tasks">
-                {taskNodes}
+                {tasksNodes}
             </section>
         </section>
     );

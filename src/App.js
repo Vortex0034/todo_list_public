@@ -1,10 +1,11 @@
 import MainTaskList from "./interfaceModules/MainTaskList/MainTaskList.js";
 import AddChangeTaskWindow from "./interfaceModules/components/AddChangeTaskWindow.js";
 import DeadlineTaskList from "./interfaceModules/DeadlineTaskList/DeadlineTaskList.js";
+import { getListOfTaskNodes } from "./services/services.js"
 import { useState } from "react";
 import DoneTaskList from "./interfaceModules/DoneTaskList/DoneTaskList.js";
 
-function AddTaskButton() {
+function AddTaskButton({onChangeDelete}) {
 
     const [isWindowShowed, changeWindow] = useState(false);
 
@@ -17,22 +18,30 @@ function AddTaskButton() {
         <button className="add-button" onClick={addTaskController}>
             Добавить задачу
         </button>
-        <AddChangeTaskWindow toChange={null} currTask={null} isVision={isWindowShowed} setVisionFunction={changeWindow}/>
+        <AddChangeTaskWindow toChange={null} currTask={null} isVision={isWindowShowed} setVisionFunction={changeWindow} onChangeDelete={onChangeDelete}/>
         </>
     );
 }
 
 export default function Interface() {
-    const [mainTasks, setMainTasks] = useState([]);
+    const [mainTasks, setMainTasks] = useState(getListOfTaskNodes("deadlineTasks", false, false));
+    const [doneTasks, setDoneTasks] = useState(getListOfTaskNodes(null, true, false));
+    const [deadlineTisks, setDeadlineTasks] = useState(getListOfTaskNodes(null, false, true));
+
+    function onChangeDelete() {
+        setDeadlineTasks(getListOfTaskNodes(null, false, true));
+        setDoneTasks(getListOfTaskNodes(null, true, false));
+        setMainTasks(getListOfTaskNodes("deadlineTasks", false, false));
+    }
 
     return (
       <section className="container">
-        <AddTaskButton />
+        <AddTaskButton onChangeDelete={onChangeDelete}/>
         <section className="interface-container">
-            <MainTaskList tasks={mainTasks} tasksSetter={setMainTasks}/>
+            <MainTaskList tasks={mainTasks} tasksSetter={setMainTasks} onChangeDelete={onChangeDelete}/>
             <section className="ofther-tasks-container">
-                <DeadlineTaskList />
-                <DoneTaskList />
+                <DeadlineTaskList tasks={deadlineTisks} onChangeDelete={onChangeDelete}/>
+                <DoneTaskList tasks={doneTasks} onChangeDelete={onChangeDelete}/>
             </section>
         </section>
       </section>

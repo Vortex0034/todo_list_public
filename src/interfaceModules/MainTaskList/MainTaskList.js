@@ -1,16 +1,13 @@
-import { useEffect } from 'react';
-import { updateList } from "../../services/services.js";
+import { getListOfTaskNodes } from "../../services/services.js";
+import Task from "../components/Task.js";
 
-export default function MainTaskList({ tasks, tasksSetter }) {
+export default function MainTaskList({ tasks, tasksSetter, onChangeDelete }) {
 
     function selectValueHandler(e) {
         let sortSelect = e.target.name;
-        updateList(sortSelect, false, false, tasksSetter);
+        let newTaskList = getListOfTaskNodes(sortSelect, false, false);
+        tasksSetter(newTaskList);
     }
-
-    useEffect(() => {
-        updateList("createTime", false, false, tasksSetter);
-    }, []);
 
     function SortSelector() {
         return (
@@ -21,13 +18,17 @@ export default function MainTaskList({ tasks, tasksSetter }) {
         );
     }
 
+    let tasksNodes = tasks.map((task) => 
+        <Task id={task.id} key={task.id} onChangeDelete={onChangeDelete}/>
+    );
+
     return (
         <section className="main-tasks-container">
             <h2>Поставленные задачи</h2>
             <SortSelector />
             
             <section className="main-tasks">
-                {tasks}
+                {tasksNodes}
             </section>
         </section>
     );

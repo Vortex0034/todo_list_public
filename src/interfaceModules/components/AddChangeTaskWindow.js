@@ -3,7 +3,7 @@ import { useState } from 'react';
 import {saveLastId, getLastId, saveTask} from "../../services/task_controller.js";
 import { toNormHTMLDateFormat } from "../../services/time_services.js";
 
-export default function AddChangeTaskWindow({ isVision, setVisionFunction, toChange, currTask }) {
+export default function AddChangeTaskWindow({ isVision, setVisionFunction, toChange, currTask, onChangeDelete }) {
 
     function submitHandlerChange(task) {
         let title = document.getElementById(`task-title-${ task.id }`).value;
@@ -51,7 +51,9 @@ export default function AddChangeTaskWindow({ isVision, setVisionFunction, toCha
                     <textarea id={`task-description-${task.id}`} onChange={e => setDescription(e.target.value)} value={description} />
                     Выполнить до:
                     <input type='datetime-local' id={`task-deadline-${task.id}`} onChange={e => setDeadlineTime(e.target.value)} value={deadlineTime}></input>
-                    <button onClick={e => submitHandlerChange(task)}>Сохранить</button>
+                    <button onClick={e => { submitHandlerChange(task);
+                                            onChangeDelete();
+                     }}>Сохранить</button>
                     <button onClick={submitHandlerCancel}>Отмена</button>
             </form>
         );
@@ -66,7 +68,9 @@ export default function AddChangeTaskWindow({ isVision, setVisionFunction, toCha
                     <textarea id="task-description" />
                     Выполнить до:
                     <input type='datetime-local' id="task-deadline"></input>
-                    <button onClick={submitHandlerSave}>Создать</button>
+                    <button onClick={() => { submitHandlerSave(); 
+                                             onChangeDelete();
+                    } }>Создать</button>
                     <button onClick={submitHandlerCancel}>Отмена</button>
             </form>
         );

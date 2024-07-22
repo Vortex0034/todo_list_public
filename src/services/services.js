@@ -1,5 +1,4 @@
 import {getTaskList} from "./task_controller.js";
-import Task from "../interfaceModules/components/Task.js";
 
 function getListOfTaskNodes(sortValue, isDoneTasks, timeIsUpTasks) {
     let tasksObject = getTaskList();
@@ -28,17 +27,10 @@ function getListOfTaskNodes(sortValue, isDoneTasks, timeIsUpTasks) {
     else if (sortValue == "createTime")
         tasksList.sort((first, second) => first.createTime > second.createTime ? 1 : -1)
 
-    let taskNodes = tasksList.map((task) => 
-        <Task id={task.id} key={task.id} />
-        );
+    
 
 
-    return taskNodes;
+    return tasksList;
 }
 
-function updateList(sortValue, isDoneTasks, timeIsUpTasks, tasksSetter) {
-    let tasks = getListOfTaskNodes(sortValue, isDoneTasks, timeIsUpTasks);
-    tasksSetter(tasks);
-}
-
-export {getListOfTaskNodes, updateList}
+export {getListOfTaskNodes}
