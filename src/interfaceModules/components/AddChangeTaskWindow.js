@@ -37,62 +37,38 @@ export default function AddChangeTaskWindow({ isVision, setVisionFunction, toCha
         setVisionFunction( (state) => {state = false});
     }
 
-    function ChangeTaskForm({ task }) {
+    function AddChangeTaskForm({ task }) {
 
-        const [title, setTitle] = useState(task.title);
-        const [description, setDescription] = useState(task.description);
-        const [deadlineTime, setDeadlineTime] = useState(toNormHTMLDateFormat(task.deadlineTime));
+        const [title, setTitle] = useState(task ? task.title : undefined);
+        const [description, setDescription] = useState(task ? task.description : undefined);
+        const [deadlineTime, setDeadlineTime] = useState(task ? toNormHTMLDateFormat(task.deadlineTime) : undefined);
+
+        let titleChangeHandler = task ? e => setTitle(e.target.value) : undefined;
+        let descriptionChangeHandler = task ? e =>  setDescription(e.target.value) : undefined;
+        let datetimeChangeHandler = task ? e => e => setDeadlineTime(e.target.value) : undefined;
+
+        let label = task ? "Сохранить" : "Создать";
 
         return (
             <form className="change-add-form">
                     Заголовок:
-                    <input id={`task-title-${task.id}`} value={title} onChange={e => setTitle(e.target.value)}></input>
+                    <input id={task ? `task-title-${task.id}` : `task-title`} value={title} onChange={titleChangeHandler}></input>
                     Описание:
-                    <textarea id={`task-description-${task.id}`} onChange={e => setDescription(e.target.value)} value={description} />
+                    <textarea id={task ? `task-description-${task.id}` : `task-description`} onChange={descriptionChangeHandler} value={description} />
                     Выполнить до:
-                    <input type='datetime-local' id={`task-deadline-${task.id}`} onChange={e => setDeadlineTime(e.target.value)} value={deadlineTime}></input>
-                    <button onClick={e => { submitHandlerChange(task);
+                    <input type='datetime-local' id={task ? `task-deadline-${task.id}` : "task-deadline"} onChange={datetimeChangeHandler} value={deadlineTime}></input>
+                    <button onClick={e => { task ? submitHandlerChange(task) : submitHandlerSave();
                                             onChangeDelete();
-                     }}>Сохранить</button>
+                     }}>{ label }</button>
                     <button onClick={submitHandlerCancel}>Отмена</button>
             </form>
         );
     }
 
-    function AddTaskForm() {
-        return (
-            <form className="change-add-form">
-                    Заголовок:
-                    <input id="task-title"></input>
-                    Описание:
-                    <textarea id="task-description" />
-                    Выполнить до:
-                    <input type='datetime-local' id="task-deadline"></input>
-                    <button onClick={() => { submitHandlerSave(); 
-                                             onChangeDelete();
-                    } }>Создать</button>
-                    <button onClick={submitHandlerCancel}>Отмена</button>
-            </form>
-        );
-    }
-
-    if (isVision && !toChange)
-        return (
-            <section className="add-window" >
-                <AddTaskForm />
+    return (
+            <section className={!isVision ? "add-window-none" : "add-window"} >
+                <AddChangeTaskForm task={currTask}/>
             </section>
-        )
-    else if (isVision && toChange)
-        return (
-            <section className="add-window" >
-                <ChangeTaskForm task={currTask}/>
-            </section>
-        );
-    else 
-        return (
-            <section className="add-window-none" >
-                <AddTaskForm />
-            </section>
-        );
+    );
 
 }

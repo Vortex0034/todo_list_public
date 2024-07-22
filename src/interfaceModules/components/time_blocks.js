@@ -8,14 +8,9 @@ function TimeBlock({ms, isSoonLate, isDone}) {
     let hours = leadingZero(date.getHours());
     let minutes = leadingZero(date.getMinutes());
 
-    if (isSoonLate && !isDone)
-        return (
-            <span className="soon-late-date">{day}.{month}.{year} {hours}:{minutes}</span>
-        )
-    else
-        return (
-            <span className="normal-date">{day}.{month}.{year} {hours}:{minutes}</span>
-        );
+    return (
+            <span className={`soon-late-${isSoonLate && !isDone}`}>{day}.{month}.{year} {hours}:{minutes}</span>
+      )
 }
 
 export {TimeBlock}

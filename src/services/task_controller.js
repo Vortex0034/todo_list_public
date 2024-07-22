@@ -36,7 +36,6 @@ function saveTask(id, title, description, deadlineTime, createTime, doneStatus) 
     let taskList = getTaskList();
     taskList[id] = currentTask;
     let taskListJSON = JSON.stringify(taskList);
-    console.log(taskListJSON);
     localStorage.setItem("taskList", taskListJSON);
 }
 
