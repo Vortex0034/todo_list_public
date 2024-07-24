@@ -15,14 +15,14 @@ function getLastId() {
 }
 
 function getTaskList() {
-    try {
-        let taskListJSON = localStorage.getItem("taskList");
-        let taskList = JSON.parse(taskListJSON);
-        return taskList;
+    let taskListJSON = localStorage.getItem("taskList");
+    if (taskListJSON === null)
+    {
+        localStorage.setItem('taskList', "{}");
+        taskListJSON = localStorage.getItem("taskList");
     }
-    catch(err) {
-        alert(`Ошибка возвращения списка задач ${err.name}`);
-    }
+    let taskList = JSON.parse(taskListJSON);
+    return taskList;
 }
 
 function saveTask(id, title, description, deadlineTime, createTime, doneStatus) {
