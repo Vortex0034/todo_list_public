@@ -12,8 +12,9 @@ export default function AddChangeTaskWindow({ isVision, setVisionFunction, toCha
 
         
         let id = task.id;
+        let doneStatus = task.done;
         let createDateMs = task.createTime;
-        saveTask(id, title, description, deadlineDateMs, createDateMs);
+        saveTask(id, title, description, deadlineDateMs, createDateMs, doneStatus);
         
         setVisionFunction( (state) => {state = false});
     }
@@ -45,7 +46,7 @@ export default function AddChangeTaskWindow({ isVision, setVisionFunction, toCha
 
         let titleChangeHandler = task ? e => setTitle(e.target.value) : undefined;
         let descriptionChangeHandler = task ? e =>  setDescription(e.target.value) : undefined;
-        let datetimeChangeHandler = task ? e => e => setDeadlineTime(e.target.value) : undefined;
+        let datetimeChangeHandler = task ? e => setDeadlineTime(e.target.value) : undefined;
 
         let label = task ? "Сохранить" : "Создать";
 
