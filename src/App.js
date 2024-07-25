@@ -4,6 +4,7 @@ import DeadlineTaskList from "./interfaceModules/DeadlineTaskList/DeadlineTaskLi
 import { getListOfTaskNodes } from "./services/services.js"
 import { useState } from "react";
 import DoneTaskList from "./interfaceModules/DoneTaskList/DoneTaskList.js";
+import { Analytics } from "@vercel/analytics/react"
 
 function AddTaskButton({onChangeDelete}) {
 
@@ -42,6 +43,7 @@ export default function Interface() {
             <section className="ofther-tasks-container">
                 <DeadlineTaskList tasks={deadlineTisks} onChangeDelete={onChangeDelete}/>
                 <DoneTaskList tasks={doneTasks} onChangeDelete={onChangeDelete}/>
+                <Analytics />
             </section>
         </section>
       </section>
